@@ -1,0 +1,142 @@
+﻿@{
+    ViewData["Title"] = "OrderConformation";
+}
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+<link rel="stylesheet" href="~/css/orderTracker.css" asp-append-version="true" />
+
+
+<div class="p-3">
+    <h1 class="text-center text-capitalize">Thank you, <span style=" color: var(--colorGreenStarbucks);"> @ViewBag.FirstName</span> for placing order</h1>
+    <div class="">
+    </div>
+</div>
+
+
+
+<div class="order-container d-flex justify-content-center flex-column p-3">
+
+    @*  <div class="head">
+    <p class="head_1">Animated Step <span>Progress Bar</span></p>
+    <p class="head_2">Using Html, Css & JavaScript</p>
+    </div> *@
+
+    <ul class="mx-auto mt-5 order-tracker">
+        <li>
+            <i class="icon uil uil-process"></i>
+            <div class="order-progress one">
+                <p>1</p>
+                <i class="uil uil-check"></i>
+            </div>
+            <p class="text">Order Processing</p>
+        </li>
+        <li>
+            <i class="icon uil uil-coffee"></i>
+            <div class="order-progress two">
+                <p>2</p>
+                <i class="uil uil-check"></i>
+            </div>
+            <p class="text">Coffee Brewing</p>
+        </li>
+        <li>
+            <i class="icon uil uil-coffee"></i>
+            <div class="order-progress three">
+                <p>3</p>
+                <i class="uil uil-check"></i>
+            </div>
+            <p class="text">Milk Frothing</p>
+        </li>
+        <li>
+            <i class="icon uil uil-coffee"></i>
+            <div class="order-progress four">
+                <p>4</p>
+                <i class="uil uil-check"></i>
+            </div>
+            <p class="text">Adding Topping</p>
+        </li>
+        <li>
+            <i class="icon uil uil-store"></i>
+            <div class="order-progress five">
+                <p>5</p>
+                <i class="uil uil-check"></i>
+            </div>
+            <p class="text">Ready for Pickup</p>
+        </li>
+    </ul>
+</div>
+
+
+@section Scripts {
+    <script>
+
+
+        localStorage.setItem("objKey", null);
+    </script>
+
+
+    <script>
+        // const one = document.querySelector(".one");
+        // const two = document.querySelector(".two");
+        // const three = document.querySelector(".three");
+        // const four = document.querySelector(".four");
+        // const five = document.querySelector(".five");
+
+        // one.onclick = function () {
+        //     one.classList.add("active");
+        //     two.classList.remove("active");
+        //     three.classList.remove("active");
+        //     four.classList.remove("active");
+        //     five.classList.remove("active");
+        // }
+
+        // two.onclick = function () {
+        //     one.classList.add("active");
+        //     two.classList.add("active");
+        //     three.classList.remove("active");
+        //     four.classList.remove("active");
+        //     five.classList.remove("active");
+        // }
+        // three.onclick = function () {
+        //     one.classList.add("active");
+        //     two.classList.add("active");
+        //     three.classList.add("active");
+        //     four.classList.remove("active");
+        //     five.classList.remove("active");
+        // }
+        // four.onclick = function () {
+        //     one.classList.add("active");
+        //     two.classList.add("active");
+        //     three.classList.add("active");
+        //     four.classList.add("active");
+        //     five.classList.remove("active");
+        // }
+        // five.onclick = function () {
+        //     one.classList.add("active");
+        //     two.classList.add("active");
+        //     three.classList.add("active");
+        //     four.classList.add("active");
+        //     five.classList.add("active");
+        // }
+
+
+        const elements = [document.querySelector(".one"),
+        document.querySelector(".two"),
+        document.querySelector(".three"),
+        document.querySelector(".four"),
+        document.querySelector(".five")];
+
+        let currentIndex = 0;
+
+        const simulateClicks = () => {
+            if (currentIndex < elements.length) {
+                elements[currentIndex].classList.add("active");
+                currentIndex++;
+            } else {
+                clearInterval(timer);
+            }
+        };
+
+        const timer = setInterval(simulateClicks, 2000);
+        simulateClicks();
+
+    </script>
+}

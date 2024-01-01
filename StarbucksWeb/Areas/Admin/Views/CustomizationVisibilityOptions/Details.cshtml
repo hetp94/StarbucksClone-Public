@@ -1,0 +1,31 @@
+﻿@model StarbucksModels.DbModels.CustomizationSubCategory
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_LayoutAdmin";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>CustomizationVisibilityOptions</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SubCategoryName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SubCategoryName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomizationCategory)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomizationCategory.CategoryName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.CustomizationSubcategoryId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,100 @@
+﻿@model IEnumerable<StarbucksModels.DbModels.Product>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutAdmin";
+}
+
+@* <ul class="nav nav-pills">
+    <li class="nav-item">
+        <a class="nav-link active" asp-action="Index">Old</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link " asp-action="IndexNew">New</a>
+    </li>
+</ul> *@
+
+<p>
+    <a asp-action="CreateNew">Create</a>
+  
+</p>
+<table class="table table-sm table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            @*  <th>
+            @Html.DisplayNameFor(model => model.Descrption)
+            </th>*@
+            @* <th>
+            @Html.DisplayNameFor(model => model.RewardPoints)
+            </th>*@
+            @*  <th>
+            @Html.DisplayNameFor(model => model.NutritionInfoText)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Menu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubCategory)
+            </th>
+            @*   <th>
+            @Html.DisplayNameFor(model => model.SortingOrder)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CroppedUrl)
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                @*  <td>
+            @Html.DisplayFor(modelItem => item.Descrption)
+            </td>*@
+                @*  <td>
+            @Html.DisplayFor(modelItem => item.RewardPoints)
+            </td>*@
+                @*  <td>
+            @Html.DisplayFor(modelItem => item.NutritionInfoText)
+            </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Menu.MenuName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubCategory.SubCategoryName)
+                </td>
+            @*    <td>
+                    @Html.DisplayFor(modelItem => item.SortingOrder)
+                </td>*@
+                <td>
+                    <img src="@item.ImageUrl" style="width:50px">
+                </td>
+                <td>
+                    <img src="@item.CroppedUrl" style="width:50px">
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

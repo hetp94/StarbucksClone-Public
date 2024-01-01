@@ -1,0 +1,50 @@
+﻿@model StarbucksModels.ViewModels.MenuVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+
+
+<div class="container col-9 px-4 py-2">
+    <h2 class="mt-4 text-capitalize">Menu</h2>
+    <br />
+
+
+    @if (Model.MenuList is not null)
+    {
+        @foreach (var menuItem in Model.MenuList)
+        {
+            <h3 class="mt-3 pb-2 border-bottom col-lg-9 text-capitalize">@menuItem.MenuName</h3>
+            <div class="d-flex flex-wrap py-2 justify-content-between">
+                @if (Model.CategoryList is not null)
+                {
+                    var categoryItemSelected = Model.CategoryList.Where(x => x.MenuId == menuItem.MenuId);
+                    @foreach (var categoryItem in categoryItemSelected)
+                    {
+                        <div class="feature col-lg-6 col-md-6 mb-4">
+                            <a class="text-decoration-none" asp-action="drinks" asp-route-name="@categoryItem.CategoryName">
+                                <div class="d-flex align-items-center">
+                                    <div class="me-3">
+                                        @{
+                                            var productImageList = Model.ProductList.Where(x => x.CategoryId == categoryItem.CategoryId).OrderBy(x => x.SubCategory.SortingNumber).ThenBy(x => x.SortingOrder).FirstOrDefault();
+                                            if (productImageList is not null)
+                                            {
+                                                <img src="@productImageList.CroppedUrl" style="width:110px;border-radius: 50%;">
+                                            }
+                                        }
+                                    </div>
+                                    <div>
+                                        <h4 class="text-capitalize narrow-spacing" style="color:#535353;">
+                                            @categoryItem.CategoryName
+                                        </h4>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+        }
+    }
+</div>

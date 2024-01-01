@@ -1,0 +1,62 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+
+}
+
+<form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-lg-5 col-sm-12 mx-auto">
+            <h3 class="text-capitalize text-center">Create a new account.</h3><br />
+            <h5 class="text-capitalize text-center">STARBUCKS® REWARDS</h5><br />
+            <p style="font-size:10.5pt">Join Starbucks Rewards to earn Stars for free food and drinks, any way you pay. Get access to mobile ordering, a birthday Reward, and more.</p><br />
+            <div class="card shadow p-3">
+                <br />
+                <p>* indicates required field</p>
+                <h4 class="text-capitalize">Personal Information</h4>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.LastName" class="form-control rounded-2" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="Input.LastName"></label>
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.FirstName" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="Input.FirstName"></label>
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+                <br />
+                <h4 class="text-capitalize">Account Information</h4>
+                <div class="form-floating mb-3 ">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <label asp-for="Input.Email"></label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="Input.Password"></label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                    <label asp-for="Input.ConfirmPassword"></label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+                <hr />
+                <div class="col text-center">
+                    <button id="registerSubmit" type="submit" class="btnStarbuckBackground rounded-5 btn btn-primary text-capitalize">Create Account</button>
+                </div>
+                <hr />
+                <div class="col text-center">
+                    <p>Already have account or want to login as <span class="text-opacity-100 text-primary ">Test Account</span></p>
+                    <a class="btn btn-outline-primary py-1 text-capitalize rounded-5" id="login" asp-area="Identity" asp-page="/Account/Login">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

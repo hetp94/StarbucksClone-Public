@@ -1,0 +1,94 @@
+﻿@using StarbucksStaticDetails
+@model StarbucksModels.ViewModels.ProductVM
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Starbucks Clone</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/bootswatchTheme.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    <header>
+        <partial name="_NavBarCustomer" />
+
+        <nav aria-label="breadcrumb" class=" px-5 pt-2" style=" background-color: #f9f9f9 !important;">
+            <ol class="breadcrumb breadcrumb-chevron bg-body-tertiary rounded-3">
+                <li class="breadcrumb-item ">
+                    <a class="fw-light text-decoration-none" asp-area="Customer" asp-controller="menu" asp-action="Index">Menu</a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <a class="fw-light text-decoration-none" asp-action="drinks" asp-route-name="@Model.CategoryName">
+                        <span class=" "> @Html.DisplayFor(model => model.CategoryName)</span>
+                    </a>
+                </li>
+                <li class="breadcrumb-item " aria-current="page">
+                    <a class="fw-light text-decoration-none" >
+                        <span class=" fw-semibold"> @Html.DisplayFor(model => model.Product.Name)</span>
+                    </a>
+                </li>
+            </ol>
+        </nav>
+    </header>
+
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            <div class="row align-items-center product-banner-background p-3">
+                <div class="col-lg-4 text-center">
+                    <img src="@Model.Product.ImageUrl" style="width:300px;" class="rounded-circle" />
+                </div>
+                <div class="col-lg-4 p-3 text-left">
+                    <h1 class="text-capitalize text-white">@Html.DisplayFor(model => model.Product.Name)</h1>
+                    <input type="hidden" asp-for="Product.Name" />
+                    <input type="hidden" asp-for="Product.ProductId" />
+                    <h4 class="text-capitalize text-white opacity-50">@Html.DisplayFor(model => model.Product.Calories) calories</h4>
+                </div>
+            </div>
+            @RenderBody()
+            <div class="d-flex flex-column product-banner-background  p-3">
+                <div class="col-lg-4">
+                    <div class="p-2">
+                        <div class="d-flex align-items-center justify-content-left">
+                            <div class="p-1 border border-2 rounded-2" style="color: #C68B3C !important; border-color: #C68B3C !important">
+                                @Html.DisplayFor(model => model.Product.RewardPoints)<span style="font-size:7.5pt"> <i class="fa-sharp fa-solid fa-star"></i></span> item
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-2 text-white opacity-75">
+                        <p>
+                            @Html.DisplayFor(model => model.Product.Descrption)
+                        </p>
+                    </div>
+                    <div class="p-2 text-white opacity-75">
+                        <p>
+                            @Html.DisplayFor(model => model.Product.NutritionInfoText)
+                        </p>
+                    </div>
+                    <div class="p-2">
+                        <a class="border border-2 rounded-5 text-decoration-none text-white p-2">
+                            Full nutrition & ingredients list
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+    <div class="addOrderClass">
+        <input class="orderBtn btn text-capitalize rounded-5" id="addToOrderBtn" type="button" value="Add to Order" />
+    </div>
+    <partial name="_footer" />
+    <partial name="_StoreInfo" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/productInfo.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

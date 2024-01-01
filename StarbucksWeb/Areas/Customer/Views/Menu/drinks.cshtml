@@ -1,0 +1,115 @@
+﻿@model StarbucksModels.ViewModels.MenuVM
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+
+
+
+@* @if (Model.subCategoryList is not null)
+{
+    @foreach (var subCategoryItem in Model.subCategoryList)
+    {
+        <div class="row">
+            <br /> <h3 class="text-capitalize">@subCategoryItem.SubCategoryName</h3><br /><br />
+            <hr />
+        </div>
+        @if (Model.ProductList is not null)
+        {
+            var ProductListSelected = Model.ProductList.Where(x => x.SubCategoryId == subCategoryItem.SubcategoryId);
+            <div class="row mb-5">
+                @foreach (var productItem in ProductListSelected)
+                {
+                    <a asp-action="Product" asp-route-id="@productItem.ProductId" class="text-decoration-none col-3 text-center">
+                        <img src="@productItem.CroppedUrl" style="width:148px;border-radius: 50%;"><br /><br />
+                        <h5 class="text-capitalize narrow-spacing">@productItem.Name</h5>
+                    </a>
+                }
+            </div>
+        }
+    }
+} *@
+
+
+<div class="container col-9 px-4 py-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb breadcrumb-chevron bg-body-tertiary rounded-3">
+            <li class="breadcrumb-item ">
+                <a class="link-body-emphasis text-decoration-none" asp-area="Customer" asp-controller="menu" asp-action="Index">Menu</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">
+                <span class=" fw-semibold">@Model.ActiveCategory</span>
+                
+            </li>
+        </ol>
+    </nav>
+   
+
+
+    @* @if (Model.subCategoryList is not null)
+    {
+        @foreach (var subCategoryItem in Model.subCategoryList)
+        {
+            <h3 class="mt-3 pb-2 border-bottom col-lg-9 text-capitalize">@subCategoryItem.SubCategoryName</h3>
+            <div class="d-flex flex-wrap py-2 justify-content-between">
+                @if (Model.ProductList is not null)
+                {
+                    var ProductListSelected = Model.ProductList.Where(x => x.SubCategoryId == subCategoryItem.SubcategoryId);
+                    @foreach (var productItem in ProductListSelected)
+                    {
+                        <div class="feature col-lg-3 col-md-6 mb-4">
+                            <a class="text-decoration-none" asp-action="drinks" asp-route-name="@productItem.ProductId">
+                                <div class="d-flex flex-column align-items-center">
+                                    <div class="me-3">
+                                        <img src="@productItem.CroppedUrl" style="width:110px;border-radius: 50%;">
+                                    </div>
+                                    <div>
+                                        <h5 class="text-capitalize narrow-spacing" style="color:#535353;">
+                                            @productItem.Name
+                                        </h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+        }
+    } *@
+
+
+    @if (Model.subCategoryList is not null)
+    {
+        @foreach (var subCategoryItem in Model.subCategoryList)
+        {
+            <h3 class="mt-3 pb-2 border-bottom col-lg-9 text-capitalize">@subCategoryItem.SubCategoryName</h3>
+            <div class="row">
+                @if (Model.ProductList is not null)
+                {
+                    var ProductListSelected = Model.ProductList.Where(x => x.SubCategoryId == subCategoryItem.SubcategoryId);
+                    @foreach (var productItem in ProductListSelected)
+                    {
+                        <div class="feature col-lg-3 col-md-4 col-sm-6 mb-4">
+                            <a class="text-decoration-none" asp-action="product" asp-route-id="@productItem.ProductId">
+                                <div class="d-flex flex-column align-items-center">
+                                    <div class="me-3 mb-3 mt-3">
+                                        <img src="@productItem.CroppedUrl" style="width:148px;border-radius: 50%;">
+                                    </div>
+                                    <div>
+                                        <h5 class="text-capitalize narrow-spacing text-center" style="color:#535353;">
+                                            @productItem.Name
+                                        </h5>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+        }
+    }
+
+
+</div>
+

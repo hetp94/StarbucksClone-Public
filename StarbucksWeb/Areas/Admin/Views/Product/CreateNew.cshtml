@@ -1,0 +1,247 @@
+﻿@model StarbucksModels.ViewModels.AddProductNewVM
+@{
+    ViewData["Title"] = "CreateNew";
+    Layout = "_LayoutAdmin";
+}
+
+<h1>CreateNew</h1>
+
+<form method="post" enctype="multipart/form-data" id="myform">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row mb-3">
+        <div class="col-6">
+            <div class="row">
+                <div class="form-group">
+                    <label asp-for="Product.Name" class="control-label"></label>
+                    <input asp-for="Product.Name" class="form-control" />
+                    <span asp-validation-for="Product.Name" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="Product.RewardPoints" class="control-label"></label>
+                        <input asp-for="Product.RewardPoints" class="form-control" />
+                        <span asp-validation-for="Product.RewardPoints" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="Product.Calories" class="control-label"></label>
+                        <input asp-for="Product.Calories" class="form-control" />
+                        <span asp-validation-for="Product.Calories" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="Product.NutritionInfoText" class="control-label"></label>
+                        <input asp-for="Product.NutritionInfoText" class="form-control" />
+                        <span asp-validation-for="Product.NutritionInfoText" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-group">
+                        <label asp-for="Product.SortingOrder" class="control-label"></label>
+                        <input asp-for="Product.SortingOrder" class="form-control" />
+                        <span asp-validation-for="Product.SortingOrder" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="Product.Descrption" class="control-label"></label>
+                <textarea asp-for="Product.Descrption" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Product.Descrption" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="Product.MenuId" class="control-label"></label>
+                <select asp-for="Product.MenuId" class="form-select" asp-items="Model.MenuDropDown" id="menuList">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="Product.CategoryId" class="control-label"></label>
+                <select asp-for="Product.CategoryId" class="form-select" asp-items="Model.CategoryList" id="categoryList"></select>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-group">
+                <label asp-for="Product.SubCategoryId" class="control-label"></label>
+                <select asp-for="Product.SubCategoryId" class="form-select" asp-items="Model.SubCategoryList" id="subCategoryList"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="Product.WholeImage" class="control-label"></label>
+                <input asp-for="Product.WholeImage" class="form-control" />
+                <span asp-validation-for="Product.WholeImage" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="Product.CroppedImage" class="control-label"></label>
+                <input asp-for="Product.CroppedImage" class="form-control" />
+                <span asp-validation-for="Product.CroppedImage" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <hr />
+    <h4 class="mt-3 text-capitalize">Product Customization</h4>
+    <div class="row mb-3">
+        <div class="col-2">
+            <div class="form-group">
+                <label for="CustomizationCategory" class="control-label">Cust Categoty</label>
+                <select  class="form-select form-select-sm" asp-items="Model.CustomizationCategoryDropDown" id="CustomizationCategory">
+                    <option value="">
+
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="CustomizationSubcategory" class="control-label">Cust SubCategoty</label>
+                <select  class="form-select form-select-sm" id="CustomizationSubcategory">
+                    <option value="">
+
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="CustomizationId" class="control-label">Customization</label>
+                <select  class="form-select form-select-sm" id="CustomizationId">
+                    <option value="">
+
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="CustomizationOption" class="control-label">Customization Option</label>
+                <select  class="form-select form-select-sm" id="CustomizationOption">
+                    <option value="">
+
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="form-group">
+                <label asp-for="ProductCustomization.Qty" class="control-label"></label>
+                <input asp-for="ProductCustomization.Qty" class="form-control form-control-sm" id="Qty" />
+            </div>
+        </div>
+
+    </div>
+    <div class="row mb-3">
+        <div class="col-11 mx-auto" style="overflow:auto; height:210px;">
+            <table class="table table-sm table-striped table-bordered mt-2" id="customizationTable">
+                <thead style="color:white; background-color: #706f6f">
+                    <tr>
+                        <th class="Custom">Mode</th>
+                        <th class="Custom">Mode</th>
+                        <th class="Custom">Cus Type</th>
+                        <th class="Custom">Sub Cust Type</th>
+                        <th class="Custom">Cust</th>
+                        <th class="Custom">Sub Cust</th>
+                        <th class="Custom">Qty</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-1 text-right mx-auto" style="margin-top:15px">
+            <input type="button" class="btn py-1 mt-3" style="background-color:green;  width:105px ;color:white" value="Add" onclick="addCustomization()" id="btnAddCustomization" />
+            <input type="button" class="btn py-1 mt-3" style="background-color:cyan;  width:105px; display:none " value="Update" onclick="updateCustomization()" id="btnUpdateCustomization" />
+            <input type="button" class="btn py-1 mt-3" style="background-color:red;  width:105px;color:white; display:none " value="Cancel" onclick="cancelCustomization()" id="btnRemoveCustomization" />
+
+        </div>
+    </div>
+
+    <hr />
+    <h4 class="mb-3 text-capitalize">Size Type Availibility</h4>
+
+    <div class="border p-3">
+        @if(Model.SizeTypeList is not null)
+        {
+            @foreach (var sizeType in Model.SizeTypeList)
+            {
+                <label>
+                    @Html.CheckBoxFor(m => m.IsSizeTypeSelected[sizeType.SizeTypeId], new {@class = "form-check-input"})
+                    @sizeType.SizeTypeName
+                </label>
+            }
+        }
+    </div>
+
+    <br />
+    <hr />
+    <h4 class="mb-3 text-capitalize">Customization Avalability</h4>
+
+    <div class="form-group">
+        <label asp-for="IsCustomizationCategorySelected">Customizations</label>
+        <br />
+        @foreach (var customization in Model.CustomizationCategoryList)
+        {
+            <div class="border p-3 mb-3">
+                <label>
+                    @Html.CheckBoxFor(m => m.IsCustomizationCategorySelected[customization.CustomizationCategoryId], new {@class = "form-check-input"})
+                    @customization.CategoryName
+
+                </label>
+                <br />
+
+                @{
+                    var optionValues = Model.CustomizationSubCategoryList.Where(x => x.CustomizationCategoryId == customization.CustomizationCategoryId).ToList();
+                }
+              
+                @foreach (var option in optionValues)
+                {
+                    <label>
+                        @Html.CheckBoxFor(m => m.IsCustomizationSubCategorytSelected[option.CustomizationSubcategoryId], new {@class = "form-check-input"})
+                        @option.SubCategoryName
+                    </label>
+                }
+            </div>
+        }
+    </div>
+
+   @*  <button type="submit" asp-action="CreateNew" class="btn btn-primary">Submit</button> *@
+
+    <div class="form-group mt-3">
+        <input type="button" value="Save" class="btn btn-primary py-1" onclick="SaveProduct()" />
+        <input type="button" value="Save1" class="btn py-1" onclick="CreateCustomizationObject()" />
+    </div>
+    <input type="hidden" asp-for="CustomizationArray" />
+
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="/js/product.js" asp-append-version="true"></script>
+
+    }

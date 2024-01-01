@@ -1,0 +1,1432 @@
+﻿@model StarbucksModels.ViewModels.AddProductVM
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_LayoutAdmin";
+    List<string> modellist = new();
+}
+
+<style>
+    th.Custom {
+        font-size: 9pt;
+    }
+
+    td.Custom {
+        font-size: 9pt;
+    }
+
+</style>
+
+<h3>Edit Product</h3> <a asp-action="Index">Back To List</a>
+<br />
+<div class="row">
+    <div class="col-10">
+
+        <form asp-action="Create" id="myform" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Product.ProductId" />
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="row mb-3">
+                        <div class="form-group">
+                            <label asp-for="Product.Name" class="control-label"></label>
+                            <input asp-for="Product.Name" class="form-control" />
+                            <span asp-validation-for="Product.Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label asp-for="Product.RewardPoints" class="control-label"></label>
+                                <input asp-for="Product.RewardPoints" class="form-control form-control-sm" />
+                                <span asp-validation-for="Product.RewardPoints" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label asp-for="Product.Calories" class="control-label"></label>
+                                <input asp-for="Product.Calories" class="form-control form-control-sm" />
+                                <span asp-validation-for="Product.Calories" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label asp-for="Product.NutritionInfoText" class="control-label"></label>
+                                <input asp-for="Product.NutritionInfoText" class="form-control form-control-sm" />
+                                <span asp-validation-for="Product.NutritionInfoText" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Product.Descrption" class="control-label"></label>
+                        <textarea asp-for="Product.Descrption" class="form-control form-control-sm" rows="5"></textarea>
+                        <span asp-validation-for="Product.Descrption" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-2">
+                    <div class="form-group">
+                        <label asp-for="Product.SortingOrder" class="control-label"></label>
+                        <input asp-for="Product.SortingOrder" class="form-control form-control-sm" />
+                        <span asp-validation-for="Product.SortingOrder" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="Product.MenuId" class="control-label"></label>
+                        <select asp-for="Product.MenuId" class="form-select form-select-sm" asp-items="Model.MenuList" id="menuList">
+                            <option value=""></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="Product.CategoryId" class="control-label"></label>
+                        <select asp-for="Product.CategoryId" class="form-select form-select-sm" asp-items="Model.CategoryList" id="categoryList"></select>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group">
+                        <label asp-for="Product.SubCategoryId" class="control-label"></label>
+                        <select asp-for="Product.SubCategoryId" class="form-select form-select-sm" asp-items="Model.SubCategoryList" id="subCategoryList"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Product.WholeImage" class="control-label"></label>
+                        <input asp-for="Product.WholeImage" class="form-control form-control-sm" />
+                        <span asp-validation-for="Product.WholeImage" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label asp-for="Product.CroppedImage" class="control-label"></label>
+                        <input asp-for="Product.CroppedImage" class="form-control form-control-sm" />
+                        <span asp-validation-for="Product.CroppedImage" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+            <h4 class="mt-3">Customization</h4>
+     @*        <div class="row mb-3">
+                <div class="col-2">
+                    <div class="form-group">
+                        <label asp-for="ProductCustomization.CustomizationTypeName" class="control-label"></label>
+                        <select asp-for="ProductCustomization.CustomizationTypeName" class="form-select form-select-sm" asp-items="Model.CustomizationTypeList" id="CustomizationType">
+                            <option value="">
+
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="ProductCustomization.SubCustomizationTypeName" class="control-label"></label>
+                        <select asp-for="ProductCustomization.SubCustomizationTypeName" class="form-select form-select-sm" id="SubCustomizationType">
+                            <option value="">
+
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="ProductCustomization.CustomizationName" class="control-label"></label>
+                        <select asp-for="ProductCustomization.CustomizationName" class="form-select form-select-sm" id="Customization">
+                            <option value="">
+
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="ProductCustomization.SubCustomizationName" class="control-label"></label>
+                        <select asp-for="ProductCustomization.SubCustomizationName" class="form-select form-select-sm" id="SubCustomization">
+                            <option value="">
+
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <div class="form-group">
+                        <label asp-for="ProductCustomization.Qty" class="control-label"></label>
+                        <input asp-for="ProductCustomization.Qty" class="form-control form-control-sm" id="Qty" />
+                    </div>
+                </div>
+
+            </div> *@
+            <div class="row mb-3">
+                <div class="col-11 mx-auto" style="overflow:auto; height:210px;">
+                    <table class="table table-sm table-striped table-bordered mt-2" id="customizationTable">
+                        <thead style="color:white; background-color: #706f6f">
+                            <tr>
+                                <th class="Custom">Mode</th>
+                                <th class="Custom">Mode</th>
+                                <th class="Custom">Cus Type</th>
+                                <th class="Custom">Sub Cust Type</th>
+                                <th class="Custom">Cust</th>
+                                <th class="Custom">Sub Cust</th>
+                                <th class="Custom">Qty</th>
+                            </tr>
+                        </thead>
+                       @*  <tbody>
+                            @if (Model.productCustomizationsList != null)
+                            {
+                                @foreach (var item in Model.productCustomizationsList)
+                                {
+                                    <tr>
+                                        <td class="Custom"><a style='color:blue' onclick="editCustomization(this)" href='#'>Edit</a></td>
+                                        <td class="Custom"><a style='color:red' onclick="removeCustomization(this)" href='#'>Delete</a></td>
+                                        <td class="Custom">@item.CustomizationTypeName</td>
+                                        <td class="Custom">@item.SubCustomizationTypeName</td>
+                                        <td class="Custom">@item.CustomizationName</td>
+                                        <td class="Custom">@item.SubCustomizationName</td>
+                                        <td class="Custom">@item.Qty</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody> *@
+                    </table>
+                </div>
+
+                <div class="col-1 text-right mx-auto" style="margin-top:15px">
+                    <input type="button" class="btn py-1 mt-3" style="background-color:green;  width:105px ;color:white" value="Add" onclick="addCustomization()" id="btnAddCustomization" />
+                    <input type="button" class="btn py-1 mt-3" style="background-color:cyan;  width:105px; display:none " value="Update" onclick="updateCustomization()" id="btnUpdateCustomization" />
+                    <input type="button" class="btn py-1 mt-3" style="background-color:red;  width:105px;color:white; display:none " value="Cancel" onclick="cancelCustomization()" id="btnRemoveCustomization" />
+
+                </div>
+            </div>
+
+
+            <hr />
+            <h4 class="mb-3">Customization Options</h4>
+            @{
+                //Take Addins as a reference
+            }
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.AddIns" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.AddIns" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Add-ins").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.AddIns1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="AddInsArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="AddInsArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="AddInsArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        <input type="checkbox" value="@modellist[i]" name="AddInsArray" class="form-check-input" />
+                                        <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.BlendedOption" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.BlendedOption" class="form-label text-uppercase customizationLabel"></label>
+
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Blended Option").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.BlendedOption1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="BlendedOptionArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="BlendedOptionArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="BlendedOptionArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        <input type="checkbox" value="@modellist[i]" name="BlendedOptionArray" class="form-check-input" />
+                                        <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.ButterAndSpread" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.ButterAndSpread" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Butter & Spread").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.ButterAndSpread1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="ButterAndSpreadArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="ButterAndSpreadArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="ButterAndSpreadArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="ButterAndSpreadArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.CupOption" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.CupOption" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Cup Option").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.CupOption1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="CupOptionArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="CupOptionArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="CupOptionArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="CupOptionArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+
+                    <input asp-for="CustomizationVisibility.EspresspAndShot" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.EspresspAndShot" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Espresso & Shot Options").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.EspresspAndShot1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="EspresspAndShotArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="EspresspAndShotArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="EspresspAndShotArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        <input type="checkbox" value="@modellist[i]" name="EspresspAndShotArray" class="form-check-input" />
+                                        <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.Flavors" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.Flavors" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Flavors").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.Flavors1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="FlavorsArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="FlavorsArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="FlavorsArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="FlavorsArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.GrindOption" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.GrindOption" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Grind Options").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.GrindOption1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="GrindOptionArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="GrindOptionArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="GrindOptionArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="GrindOptionArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.Ice" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.Ice" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Ice").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.Ice1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="IceArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="IceArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="IceArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="IceArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.JuiceOption" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.JuiceOption" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Juice Options").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.JuiceOption1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="JuiceOptionArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="JuiceOptionArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="JuiceOptionArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="JuiceOptionArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.Lemonade" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.Lemonade" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Lemonade").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.Lemonade1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="LemonadeArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="LemonadeArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="LemonadeArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="LemonadeArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.Milk" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.Milk" class="form-label text-uppercase customizationLabel">Milk</label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Milk").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.Milk1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="MilkArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="MilkArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="MilkArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="MilkArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.OatmealTopping" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.OatmealTopping" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Oatmeal Toppings").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.OatmealTopping1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="OatmealToppingArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="OatmealToppingArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="OatmealToppingArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="OatmealToppingArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.PreparationMethod" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.PreparationMethod" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Preparation Method").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.PreparationMethod1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="PreparationMethodArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="PreparationMethodArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="PreparationMethodArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="PreparationMethodArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.SandwichOption" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.SandwichOption" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Sandwich Options").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.SandwichOption1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="SandwichOptionArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="SandwichOptionArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="SandwichOptionArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="SandwichOptionArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.StarbucksRefreshers" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.StarbucksRefreshers" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Starbucks Refreshers Bases").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.StarbucksRefreshers1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="StarbucksRefreshersArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="StarbucksRefreshersArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="StarbucksRefreshersArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="StarbucksRefreshersArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.Sweetners" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.Sweetners" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Sweeteners").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.Sweetners1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="SweetnersArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="SweetnersArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="SweetnersArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="SweetnersArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.Tea" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.Tea" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Tea").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.Tea1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="TeaArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="TeaArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="TeaArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="TeaArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.Topping" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.Topping" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Toppings").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.Topping1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="ToppingArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="ToppingArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="ToppingArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="ToppingArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.Warmed" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.Warmed" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Warmed").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.Warmed1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="WarmedArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="WarmedArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="WarmedArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="WarmedArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 p-2 border">
+                <div class="col-12">
+                    <input asp-for="CustomizationVisibility.Water" class="form-check-input" />
+                    <label asp-for="CustomizationVisibility.Water" class="form-label text-uppercase customizationLabel"></label>
+                    <div class="row">
+                        <div class="col-12">
+                            @{
+                                modellist = Model.CustomizationAttributesList.Where(x => x.CustomizationType == "Water").Select(x => x.SubCustomizationType).Distinct().ToList();
+
+                                if (Model.CustomizationVisibility != null)
+                                {
+                                    string custoVisibility = Model.CustomizationVisibility.Water1;
+                                    if (custoVisibility != null)
+                                    {
+                                        List<string> custoVisibilityList = custoVisibility.Split(',').ToList();
+
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (custoVisibilityList.Contains(modellist[i]))
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="WaterArray" class="form-check-input" checked />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="WaterArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        for (int i = 0; i < modellist.Count(); i++)
+                                        {
+                                            if (modellist[i] != null)
+                                            {
+                                                <input type="checkbox" value="@modellist[i]" name="WaterArray" class="form-check-input" />
+                                                <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < modellist.Count(); i++)
+                                    {
+                                        if (modellist[i] != null)
+                                        {
+                                            <input type="checkbox" value="@modellist[i]" name="WaterArray" class="form-check-input" />
+                                            <label for="@modellist[i]" class="form-label">@modellist[i]</label>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="button" value="Update" class="btn btn-primary py-1" onclick="UpdateProduct()" />
+
+            </div>
+            <input type="hidden" asp-for="CustomizationArray" />
+        </form>
+    </div>
+
+    <div class="col-2 text-center">
+        <br />
+        @if (Model.Product.ImageUrl != null)
+        {
+            <img src="@Model.Product.ImageUrl" style="width:110px;border-radius: 50%;">
+
+            <br />
+
+            <br />
+            <h6>Whole Image</h6>
+        }
+        <hr />
+        @if (Model.Product.CroppedUrl != null)
+        {
+            <img src="@Model.Product.CroppedUrl" style="width:110px;border-radius: 50%;">
+
+            <br />
+
+            <br />
+            <h6>Cropped Image</h6>
+        }
+
+
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="/js/product.js" asp-append-version="true"></script>
+
+    }

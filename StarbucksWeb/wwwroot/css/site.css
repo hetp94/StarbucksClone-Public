@@ -1,0 +1,274 @@
+/*html {
+    font-size: 14px;
+}*/
+
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;0,1000;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900;1,1000&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+/*body {
+    font-family: 'Libre Baskerville', serif;
+    font-family: 'Mulish', sans-serif;
+    font-family: 'Open Sans', sans-serif;
+}*/
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+/*.layout-link {
+    padding-top: 40px !important;
+}
+
+    .layout-link.active {
+        border-bottom: 4px solid green;
+        padding-bottom: 20px;
+    }*/
+
+.activeMenu {
+    border-bottom: 4px solid green;
+    padding-bottom: 20px;
+}
+
+::selection {
+    background-color: #00754a;
+    color: #fff;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: auto;
+}
+#side_nav {
+   background-color:antiquewhite;
+    min-width: 300px;
+    max-width: 300px;
+}
+
+.sidebar {
+    margin: 0;
+    padding: 0;
+  /*  width: 200px;*/
+   /* background-color: #f1f1f1;*/
+    position: fixed;
+   /* height: 100%;
+    overflow: auto;*/
+}
+
+   /* .sidebar a {
+        display: block;
+        color: black;
+        padding: 16px;
+        text-decoration: none;
+    }*/
+
+        .sidebar a.active {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        .sidebar a:hover:not(.active) {
+            background-color: #555;
+            color: white;
+        }
+
+/*div.content {
+    margin-left: 200px;
+    padding: 1px 16px;
+    height: 1000px;
+}*/
+
+@media screen and (max-width: 700px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+        .sidebar a {
+            float: left;
+        }
+
+    div.content {
+        margin-left: 0;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .sidebar a {
+        text-align: center;
+        float: none;
+    }
+}
+
+.narrow-spacing {
+    letter-spacing: 1px;
+}
+.hoverCard:hover {
+    background-color: bisque;
+}
+
+
+:root {
+    --colorWhite: #fff;
+    --colorNeutralCool: #f9f9f9;
+    --colorNeutralWarm: #f2f0eb;
+    --colorCeramic: #edebe9;
+    --colorBlack: #000;
+    --colorGreenStarbucks: #006241;
+    --colorGreenAccent: #00754a;
+    --colorGreenLight: #d4e9e2;
+    --colorHouseGreen: #1e3932;
+    --colorGold: #cba258;
+    --colorGoldLight: #dfc49d;
+    --colorGoldLightest: #faf6ee;
+    --colorRed: #d62b1f;
+    --colorYellow: #fbbc05;
+    --frapShadowPrimary: 0 0 6px rgba(0,0,0,.24);
+    --frapShadowSecondaryPosition: 0 8px 12px;
+    --frapShadowSecondary: var(--frapShadowSecondaryPosition) rgba(0,0,0,.14);
+}
+.bg-starbucks-green {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--strabucks-green), var(--bs-bg-opacity)) !important;
+}
+.nutrion-border{
+    border:1px solid white;
+    border-radius:20px;
+    padding:7px;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:13pt;
+}
+
+.customization-border {
+    border: 1px solid black;
+    border-radius: 20px;
+    padding: 7px;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 13pt;
+}
+
+.product-banner-background {
+    background-color: #1F3933;
+   
+}
+.product-description-background {
+    min-height: 280px;
+    background-color: #1F3933;
+    width: 100%;
+    margin-right: -0px;
+    margin-left: -0px;
+}
+    .product-description-background p {
+        color: #b7b7b7;
+    }
+.footerInfoClass {
+    padding-right: 550px;
+    padding-left: 131px;
+    border-top: 3px solid #d1d1d1;
+}
+
+    .footerInfoClass a {
+        color: #747474;
+    }
+        .footerInfoClass a:hover {
+            color: black;
+        }
+        .footerInfoClass h4{
+            letter-spacing:1px;
+        }
+
+.footerIconClass {
+    padding-right: 550px;
+    padding-left: 110px;
+   
+}
+
+.bottomStoreInfo {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    background-color: #1E3932 !important;
+    height: 80px;
+}
+.rewardsClass {
+    color: #C68B3C !important;
+    border: 1px solid #C68B3C;
+    width: 110px;
+    border-radius: 5px;
+    /*padding: 1px;*/
+    height:30px;
+}
+.productLabel {
+    font-size: 1.25rem;
+    color: #404040;
+    border: 1px solid #bdbdbd;
+    border-radius:10px;
+    
+}
+
+/*a.layout-link {
+    color: black;
+    font-weight: bold;
+    font-size:12pt;
+}*/
+
+    a.layout-link:hover {
+        color: #1E3932 !important;
+    }
+
+.customizationLabel{
+    font-size:14pt;
+}
+
+.addOrderClass {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+}
+
+.orderBtn {
+    background-color: var(--colorGreenAccent) !important;
+    color: white;
+    padding: 15px;
+    font-size: 14pt !important;
+    box-shadow: var(--frapShadowPrimary),var(--frapShadowSecondary);
+}
+.orderBtn:hover{
+    color:white;
+}
+
+.btnStarbuckBackground {
+    background-color: var(--colorGreenAccent) !important;
+    color: white;
+    box-shadow: var(--frapShadowPrimary),var(--frapShadowSecondary);
+}
+
+.shoppingCart{
+    color:white;
+    font-size:18pt;
+}
+
+.bg-starbcksGreen {
+    background-color: var(--colorHouseGreen) !important;
+}
+
+#map {
+    height: 400px; /* The height is 400 pixels */
+    width: 100%; /* The width is the width of the web page */
+}

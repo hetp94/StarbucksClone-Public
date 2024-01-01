@@ -1,0 +1,81 @@
+﻿@using StarbucksStaticDetails
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Starbucks Clone</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/bootswatchTheme.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/StarbucksWeb.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    <header>
+      
+    </header>
+    <div class="container-fluid">
+
+
+        <main role="main" class="pb-3">
+
+            <div class="row">
+                <div class="col-lg-5 p-3 bg-starbcksGreen">
+                    <div class="d-flex align-items-center mt-3 mb-3">
+                        <a  asp-controller="Home" asp-action="Index"><img class="navbar-brand" src="~/assets/images/Logo/Logo.png" style="width:50px;" alt="Starcuks Logo" /></a>
+                        <a asp-area="Customer" asp-controller="Menu" asp-action="Index" class="text-decoration-none " style="color:white; font-size:13pt">
+                            <i class="fa-sharp fa-solid fa-arrow-left fa-sm"></i> &nbsp; Back to menu
+                        </a>
+
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h3 class="text-white text-capitalize">Review Order</h3>
+                            <p class="text-white">Prep time: 3-6 min</p>
+                            <br />
+                            <p class="text-white">Pickup store</p>
+                            <select class="form-select form-select-sm">
+                                <option value="Springfield 2" selected>Springfield 2</option>
+                            </select>
+
+                            <br />
+                            <p class="text-white">Pickup Method</p>
+                            <i class="fa-solid fa-store shoppingCart"></i>
+                            <p class="text-white">In Store</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    @RenderBody()
+
+                    <partial name="_footer" />
+                </div>
+            </div>
+
+            <div class="addOrderClass">
+                @{
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        <btn type="submit" class="orderBtn btn text-capitalize rounded-5" id="checkoutBtn">Checkout</btn>
+                    }
+                    else
+                    {
+                        <a type="submit" asp-area="Customer" asp-controller="menu" asp-action="Continue" class="orderBtn btn text-capitalize rounded-5">Continue</a>
+                    }
+                }
+            </div>
+        </main>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="//cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

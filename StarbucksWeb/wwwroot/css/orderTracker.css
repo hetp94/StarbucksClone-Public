@@ -1,0 +1,160 @@
+
+.order-container .head {
+    text-align: center;
+}
+
+.order-container .head_1 {
+    font-size: 30px;
+    font-weight: 600;
+    color: #333;
+}
+
+    .order-container .head_1 span {
+        color: #ff4732;
+        color: var(--colorGreenStarbucks);
+    }
+
+.order-container .head_2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 3px;
+}
+
+.order-container ul {
+    display: flex;
+    /* margin-top: 80px;*/
+}
+
+    .order-container ul li {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+        .order-container ul li .icon {
+            font-size: 35px;
+            color: #ff4732;
+            color: var(--colorGreenStarbucks);
+            margin: 0 60px;
+        }
+
+        .order-container ul li .text {
+            /* font-size: 14px;
+            font-weight: 600;
+            color: black;*/
+            /*color: var(--colorGreenStarbucks);*/
+           /* color: black !important;
+            font-size: 18px !important;*/
+        }
+
+           
+
+        /* order-progress Div Css  */
+
+        .order-container ul li .order-progress {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: rgba(68, 68, 68, 0.781);
+            margin: 14px 0;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            position: relative;
+            cursor: pointer;
+        }
+
+.order-container .order-progress::after {
+    content: " ";
+    position: absolute;
+    width: 125px;
+    height: 5px;
+    background-color: rgba(68, 68, 68, 0.781);
+    right: 30px;
+}
+
+.order-container .one::after {
+    width: 0;
+    height: 0;
+}
+
+.order-container ul li .order-progress .uil {
+    display: none;
+}
+
+.order-container ul li .order-progress p {
+    font-size: 13px;
+}
+
+/* Active Css  */
+
+.order-container ul li .active {
+    background-color: #ff4732;
+    background-color: var(--colorGreenStarbucks);
+    display: grid;
+    place-items: center;
+}
+
+.order-container li .active::after {
+    background-color: #ff4732;
+    background-color: var(--colorGreenStarbucks);
+}
+
+.order-container ul li .active p {
+    display: none;
+}
+
+.order-container ul li .active .uil {
+    font-size: 20px;
+    display: flex;
+}
+
+.order-container ul li .text .active {
+    color: black !important;
+    font-size: 18px !important;
+}
+
+/* Responsive Css  */
+
+@media (max-width: 980px) {
+    .order-container ul {
+        flex-direction: column;
+    }
+
+        .order-container ul li {
+            flex-direction: row;
+        }
+
+            .order-container ul li .order-progress {
+                margin: 0 30px;
+            }
+
+    .order-container .order-progress::after {
+        width: 5px;
+        height: 55px;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: -1;
+    }
+
+    .order-container .one::after {
+        height: 0;
+    }
+
+    .order-container ul li .icon {
+        margin: 15px 0;
+    }
+}
+
+@media (max-width:600px) {
+    .order-container .head .head_1 {
+        font-size: 24px;
+    }
+
+    .order-container .head .head_2 {
+        font-size: 16px;
+    }
+}

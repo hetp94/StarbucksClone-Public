@@ -1,0 +1,54 @@
+﻿@using StarbucksStaticDetails
+
+<nav class="navbar navbar-expand-lg p-2 bg-light" data-bs-theme="light">
+    <div class="container-fluid">
+        <a class="navbar-brand" asp-area=""  asp-controller="Home" asp-action="Index">
+            <img class="navbar-brand" src="~/assets/images/Logo/Logo.png" style="width:50px;" />
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor03">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" asp-area="Admin" asp-controller="Admin" asp-action="Index">
+                        Admin
+                        <span class="visually-hidden">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link layout-link h-100" id="LayoutMenuId" asp-area="Admin" asp-controller="Layout" asp-action="Index">Layout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link layout-link h-100" id="ProductMenuId" asp-area="Admin" asp-controller="Product" asp-action="IndexNew">Product</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link layout-link dropdown-toggle h-100" id="CustomizationDropDownId"
+                       data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Customization Dropdown</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="CustomizationVisibilityCodes" asp-action="Index">Customization Category</a>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="CustomizationVisibilityOptions"
+                           asp-action="Index">Customization SubCategory</a>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="CustomizationNews" asp-action="Index">Customization</a>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="CustomizationOptions" asp-action="Index">Customization Options</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link layout-link dropdown-toggle h-100" id="MenuDropDownId"
+                       data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Menu Dropdown</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="MenuType" asp-action="Index">Menu Type</a>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a>
+                        <a class="dropdown-item" asp-area="Admin" asp-controller="SubCategory" asp-action="Index">Sub Category</a>
+
+                    </div>
+                </li>
+               
+            </ul>
+            <partial name="_LoginPartial" />
+        </div>
+
+      
+
+    </div>
+</nav>

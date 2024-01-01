@@ -1,0 +1,102 @@
+﻿@model IEnumerable<StarbucksModels.DbModels.SubCategory>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutAdmin";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-sm table-striped" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubCategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShowItem)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SortingNumber)
+            </th>
+           @* <th>
+                @Html.DisplayNameFor(model => model.SortingNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateUpdated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdatedBy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EffectiveDate)
+            </th>*@
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubCategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShowItem)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SortingNumber)
+                </td>
+           @* <td>
+                @Html.DisplayFor(modelItem => item.SortingNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateUpdated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedBy)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EffectiveDate)
+            </td>*@
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SubcategoryId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SubcategoryId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SubcategoryId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable(
+                {
+                    "pageLength": 100
+                }
+            );
+        });
+    </script>
+}

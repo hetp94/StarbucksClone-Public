@@ -1,0 +1,43 @@
+﻿@model List<StarbucksModels.ViewModels.OrderHistoryVM>
+@{
+    ViewData["Title"] = "Order History";
+}
+<br />
+
+<h3 class="text-capitalize text-center">My Order History</h3>
+<br />
+@if (Model is not null)
+{
+    var groupedOrders = Model.GroupBy(o => o.OrderHeaderId);
+
+    foreach (var group in groupedOrders)
+    {
+        <div class="card shadow mx-auto col-lg-9 col-xl-6  mb-3 p-3">
+            <h5 class="text-capitalize">  Order Number: @group.Key </h5>
+            <h5 class="text-capitalize">  Order Date: @group.First().OrderDate.ToString("MM/dd/yyyy") </h5>
+            <div class="row">
+                @foreach (var orderDetail in group)
+                {
+                    <div class="col-lg-6">
+                        @if (orderDetail.CroppedUrl is not null)
+                        {
+                            <div class="d-flex align-items-center">
+                                <img src="@orderDetail.CroppedUrl" style="width: 90px; border-radius: 50%;" class="p-2">
+                                <h5 class="text-capitalize narrow-spacing p-2" style="color: #535353;">@orderDetail.ProductName</h5>
+                            </div>
+                        }
+                    </div>
+                }
+
+                <div class="col-lg-12">
+                    <div class="d-flex justify-content-end align-items-center">
+                        <p class="fw-bold text-dark">Total Price: @group.Sum(x => x.Price).ToString("c")</p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+}
+

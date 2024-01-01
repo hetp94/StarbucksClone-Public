@@ -1,0 +1,93 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+<br />
+
+<form id="account" method="post">
+    <div class="row">
+        <div class="col-lg-5 col-sm-12 mx-auto">
+            <h3 class="text-capitalize text-center">Sign in or create an account</h3><br />
+            <section>
+
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="card shadow p-3">
+                    <br />
+                    <p>* indicates required field</p>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                        <label asp-for="Input.Email" class="form-label"></label>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                        <label asp-for="Input.Password" class="form-label"></label>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <div class="checkbox">
+                            <label asp-for="Input.RememberMe" class="form-label">
+                                <input class="form-check-input" asp-for="Input.RememberMe" />
+                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="col text-center">
+                        <button id="login-submit" type="submit" class="btnStarbuckBackground rounded-5 btn btn-primary text-capitalize py-2" style="width:120px">Log in</button>
+
+                        @* <button asp-action="TestCustomerSignIn"  type="submit" class="btn btn-primary rounded-5 text-capitalize py-2">Test Login</button> *@
+
+                        <button asp-page-handler="TestCustomerLogin" id="text-login-btn" type="submit" class="btn btn-primary rounded-5 text-capitalize py-2">Test Login</button>
+
+
+                    </div>
+                    <br />
+                    <div>
+                        <p>
+                            <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        </p>
+                        <p>
+                            <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                        </p>
+                        <p>
+                            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
+                        </p>
+                    </div>
+                </div>
+
+
+            </section>
+        </div>
+
+    </div>
+</form>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+    <script>
+        $(document).ready(function () {
+
+            $("#text-login-btn").click(function (event) {
+                event.preventDefault();
+               
+                $("#Input_Email").val("Sample@sample.com"); 
+                $("#Input_Password").val("Sample123$4"); 
+
+              
+                var form = document.getElementById("account");
+                if (form.checkValidity()) {
+                    form.action = "/Identity/Account/Login?handler=TestCustomerLogin";
+                    form.submit();
+                } else {
+                    form.reportValidity();
+                }
+               
+            });
+        });
+    </script>
+}

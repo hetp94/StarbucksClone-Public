@@ -1,0 +1,36 @@
+﻿@model IEnumerable<StarbucksModels.DbModels.CustomizationCategory>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutAdmin";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CustomizationCategoryId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CustomizationCategoryId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CustomizationCategoryId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

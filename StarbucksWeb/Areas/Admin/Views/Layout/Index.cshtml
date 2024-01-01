@@ -1,0 +1,91 @@
+﻿@model StarbucksModels.ViewModels.LayoutVM
+
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutAdmin";
+}
+
+<style>
+    .taskSingleInline:hover {
+        background-color: beige;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row mb-3">
+        <div class="col-lg-3 p-2">
+            <h3 class="text-capitalize">Menu</h3>
+            <select id="menuList" asp-items="Model.MenuDropDown" class=" form-select form-select-sm">
+                <option value="">Select Menu Type</option>
+            </select>
+        </div>
+        <div class="col-lg-3 p-2">
+            <h3 class="text-capitalize">Category</h3>
+            <select id="categoryList" class="form-select form-select-sm">
+                <option value="">Select Category</option>
+            </select>
+        </div>
+        <div class="col-lg-3 p-2">
+            <h3 class="text-capitalize">Sub Category</h3>
+            <select class="form-select form-select-sm" id="subCategoryList">
+                <option>Select Sub Category</option>
+            </select>
+        </div>
+        <div class="col-lg-3 p-2">
+            <h3 class="text-capitalize">Product</h3>
+            <select class="form-select form-select-sm" id="productList">
+                <option>Select Product</option>
+            </select>
+        </div>
+
+    </div>
+
+
+
+    <input type="text" id="MenuLayout" style="display:none" />
+    <input type="text" id="CategoryLayout" style="display:none" />
+    <input type="text" id="SubCategoryLayout" style="display:none" />
+    <input type="text" id="ProductLayout" style="display:none" />
+
+    <div class="row mb-3">
+        <div class="col-lg-3" id="sortable" style="cursor:pointer">
+            @if (Model.MenuList is not null)
+            {
+                @foreach (var item in Model.MenuList)
+                {
+                    <div class="card taskSingleInline mb-3 p-2" id="task@(item.MenuName)" data-taskid="@(item.MenuId)">
+                        <h5 class="text-capitalize">@item.MenuName </h5>
+                    </div>
+                }
+            }
+            <a class="btn btn-primary py-1 mt-3 mb-3" onclick="UpdateMenuItem()">Update Menu</a>
+        </div>
+
+
+        <div class="col-lg-3" id="categorySortable" style="cursor:pointer">
+        </div>
+
+        <div class="col-lg-3" id="subCategorySortable" style="cursor:pointer">
+        </div>
+
+        <div class="col-lg-3" id="productSortable" style="cursor:pointer">
+        </div>
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
+@section Scripts {
+
+    <script src="~/jquery-ui-1.13.2/jquery-ui.min.js"></script>
+    <script src="/js/layout.js" asp-append-version="true"></script>
+
+}

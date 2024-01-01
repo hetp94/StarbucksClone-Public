@@ -1,0 +1,147 @@
+﻿@using System.Reflection
+@model StarbucksModels.ViewModels.ProductVM
+
+@{
+    ViewData["Title"] = "Product";
+    Layout = "~/Views/Shared/_LayoutCustomerProduct.cshtml";
+}
+<style>
+    .activeSize {
+        color: var(--colorGreenAccent);
+    }
+
+    .qtyBtn {
+        color: var(--colorGreenAccent);
+    }
+</style>
+
+
+<br />
+<div class="container-fluid">
+    <div class="row  mb-3 p-3">
+        <div class="col-lg-3 ">
+            <h3 class="text-capitalize text-left">Size options</h3>
+            <hr />
+            <div class="d-flex flex-row justify-content-evenly text-center">
+                @if (Model.productSizeTypes is not null)
+                {
+                    @foreach (var item in Model.productSizeTypes)
+                    {
+                        <div class="d-dlex flex-column">
+
+                            <div class="p-2">
+                                @if (item.SizeType.SizeTypeName == "Kids 8 fl oz")
+                                {
+                                    <i class="fa-solid fa-mug-saucer" style="font-size:20pt;"></i>
+                                    <br />
+                                    <span>Small</span>
+                                }
+                                @if (item.SizeType.SizeTypeName == "Short 8 fl oz")
+                                {
+                                    <i class="fa-solid fa-mug-saucer" style="font-size:25pt; "></i>
+                                    <span class="font-weight-bold">Short</span>
+                                    <br />
+                                    <span>8 fl oz</span>
+                                }
+                                @if (item.SizeType.SizeTypeName == "Tall 12 fl oz")
+                                {
+                                    <i class="fa-solid fa-mug-saucer " style="font-size:30pt; "></i>
+                                    <br />
+                                    <span class="font-weight-bold">Tall</span>
+                                    <br />
+                                    <span>12 fl oz</span>
+
+                                }
+                                @if (item.SizeType.SizeTypeName == "Grande 16 fl oz")
+                                {
+                                    <i class="fa-solid fa-mug-saucer activeSize" style="font-size:35pt; "></i>
+                                    <br />
+                                    <span class="font-weight-bold">Grande</span>
+                                    <br />
+                                    <span>16 fl oz</span>
+
+                                }
+                                @if (item.SizeType.SizeTypeName == "Venti 20 fl oz")
+                                {
+                                    <i class="fa-solid fa-mug-saucer" style="font-size:40pt;"></i>
+                                    <br />
+                                    <span class="font-weight-bold">Venti</span>
+                                    <br />
+                                    <span>20 fl oz</span>
+
+                                }
+                            </div>
+
+                        </div>
+
+                    }
+                }
+
+            </div>
+        </div>
+        <div class="col-lg-1">
+        </div>
+        <div class="col-lg-4">
+            <h3 class="text-capitalize">What's included</h3>
+            <hr />
+            @if (Model.productCustomizationVMList is not null)
+            {
+                @foreach (var item in Model.productCustomizationVMList.DistinctBy(x => x.CustomizationName))
+                {
+                    <div class="p-2 border border-2 rounded mb-3 ">
+                        <label class="form-label">@item.CustomizationSubcategoryName</label>
+
+                        @if (item.Qty is null)
+                        {
+                            <select class="form-select form-select-sm rounded ">
+                                @foreach (var option in Model.productCustomizationVMList.Where(x => x.CustomizationName == item.CustomizationName))
+                                {
+                                    if (option.CustomizationOptionName2 == option.CustomizationOptionName)
+                                    {
+                                        <option value="@option.CustomizationOptionId2" selected>@option.CustomizationOptionName2</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@option.CustomizationOptionId2">@option.CustomizationOptionName2</option>
+                                    }
+                                }
+                            </select>
+                        }
+                        else
+                        {
+                            <div class="d-flex flex-row">
+                                <div class="p-2">
+                                    <p>@item.CustomizationOptionName</p>
+                                </div>
+                                <div class="p-2">
+                                    <i class="fa-solid fa-circle-plus fa-lg qtyBtn"></i>
+                                </div>
+                                <div class="p-2">
+                                    <p data-Qty="Qty - @item.CustomizationOptionName">@item.Qty</p>
+                                </div>
+                                <div class="p-2">
+                                    <i class="fa-solid fa-circle-minus fa-lg qtyBtn"></i>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+
+
+
+
+
+
+}
+
+
+

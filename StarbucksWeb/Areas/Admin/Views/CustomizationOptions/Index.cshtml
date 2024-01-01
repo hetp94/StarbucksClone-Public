@@ -1,0 +1,56 @@
+﻿@model IEnumerable<StarbucksModels.ViewModels.CustomizationOptionVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutAdmin";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-sm table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomizationCategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomizationSubCategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomizationName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomizationOptionName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomizationCategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomizationSubCategoryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomizationName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomizationOptionName)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CustomizationOptionId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.CustomizationOptionId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CustomizationOptionId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
