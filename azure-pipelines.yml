@@ -1,0 +1,138 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+  branches:
+    include:
+      - main
+      - dev
+      - Feature_*
+
+
+pool: mycomputeragnet
+
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+stages:
+- stage: "BuildStage"
+  displayName: 'Build Stage'
+  jobs:
+ 
+  - job: 'BuildFeature'
+    displayName: 'Build Feature Branch'
+    condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/Feature_')
+
+    steps:
+    - task: NuGetToolInstaller@1
+
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '$(solution)'
+
+    - task: VSBuild@1
+      inputs:
+        solution: '$(solution)'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+    - task: VSTest@2
+      inputs:
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+    - task: PublishSymbols@2
+      displayName: 'Publish symbols path'
+      inputs:
+        SearchPattern: '**\bin\**\*.pdb'
+        PublishSymbols: false
+      continueOnError: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Dev Branch Artifact'
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)'
+        ArtifactName: 'Feature'
+      condition: succeededOrFailed()
+
+  - job: 'BuildDev'
+    displayName: 'Build Dev Branch'
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/dev'))
+
+    steps:
+    - task: NuGetToolInstaller@1
+
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '$(solution)'
+
+    - task: VSBuild@1
+      inputs:
+        solution: '$(solution)'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+    - task: VSTest@2
+      inputs:
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+    - task: PublishSymbols@2
+      displayName: 'Publish symbols path'
+      inputs:
+        SearchPattern: '**\bin\**\*.pdb'
+        PublishSymbols: false
+      continueOnError: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Dev Branch Artifact'
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)'
+        ArtifactName: 'dev'
+      condition: succeededOrFailed()
+    
+
+  - job: 'BuildMain'
+    displayName: 'Build Main Branch'
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+
+    steps:
+    - task: NuGetToolInstaller@1
+
+    - task: NuGetCommand@2
+      inputs:
+        restoreSolution: '$(solution)'
+
+    - task: VSBuild@1
+      inputs:
+        solution: '$(solution)'
+        msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+    - task: VSTest@2
+      inputs:
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
+    - task: PublishSymbols@2
+      displayName: 'Publish symbols path'
+      inputs:
+        SearchPattern: '**\bin\**\*.pdb'
+        PublishSymbols: false
+      continueOnError: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Main Branch Artifact'
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)'
+        ArtifactName: 'main'
+      condition: succeededOrFailed()
+
