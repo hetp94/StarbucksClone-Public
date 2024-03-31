@@ -146,7 +146,7 @@ namespace StarbucksWeb.Areas.Customer.Controllers
 
                 if (product != null)
                 {
-                    product.ItemPrice = Math.Round(product.ItemPrice * 1.0975m, 2) ; //add the tax here @ 9.75%
+                    //product.ItemPrice = Math.Round(product.ItemPrice * 1.0975m, 2) ; //add the tax here @ 9.75%
                     products.Add(product);
                 }
             }
